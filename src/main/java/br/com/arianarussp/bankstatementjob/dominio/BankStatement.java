@@ -14,7 +14,7 @@ import java.util.UUID;
 @Builder
 public class BankStatement {
     private UUID id;
-    private UUID idCustomer;
+    private Customer customer;
     private List<Transaction> transactions;
     private LocalDateTime timestamp;
 }

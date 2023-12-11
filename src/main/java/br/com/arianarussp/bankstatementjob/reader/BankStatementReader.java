@@ -8,6 +8,7 @@ import org.springframework.batch.item.ItemStreamReader;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class BankStatementReader implements ItemStreamReader<BankStatement> {
 
@@ -29,8 +30,7 @@ public class BankStatementReader implements ItemStreamReader<BankStatement> {
 
         if(transaction != null){
             bankStatement = new BankStatement();
-            bankStatement.setIdCustomer(transaction.getIdCustomer());
-
+            bankStatement.setId(UUID.randomUUID());
             bankStatement.setTransactions(new ArrayList<>());
             bankStatement.getTransactions().add(transaction);
             bankStatement.setTimestamp(LocalDateTime.now());

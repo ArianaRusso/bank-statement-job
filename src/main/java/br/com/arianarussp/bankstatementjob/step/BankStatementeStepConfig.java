@@ -25,13 +25,13 @@ public class BankStatementeStepConfig {
 
     @Bean
     public Step bankStatementStep(ItemStreamReader<Transaction> bankStatementItemReader,
-                                  //ItemProcessor<BankStatement, BankStatement> bankStatementItemProcessor,
+                                  ItemProcessor<BankStatement, BankStatement> bankStatementItemProcessor,
                                   ItemWriter<BankStatement> bankStatementItemWriter,
                                   JobRepository jobRepository){
         return new StepBuilder("bankStatementStep", jobRepository)
                 .<BankStatement, BankStatement>chunk(1, this.transactionManager)
                 .reader(new BankStatementReader(bankStatementItemReader))
-                //.processor(bankStatementItemProcessor)
+                .processor(bankStatementItemProcessor)
                 .writer(bankStatementItemWriter)
                 .build();
     }
