@@ -1,7 +1,6 @@
 package br.com.arianarussp.bankstatementjob.reader;
 
 import br.com.arianarussp.bankstatementjob.dominio.Transaction;
-import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemStreamReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;

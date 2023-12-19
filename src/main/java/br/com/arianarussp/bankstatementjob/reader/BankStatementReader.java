@@ -8,7 +8,7 @@ import org.springframework.batch.item.ItemStreamReader;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.UUID;
+
 
 public class BankStatementReader implements ItemStreamReader<BankStatement> {
 
@@ -21,30 +21,27 @@ public class BankStatementReader implements ItemStreamReader<BankStatement> {
 
     @Override
     public BankStatement read() throws Exception {
-        if(currentTransaction == null){
+        if (currentTransaction == null) {
             currentTransaction = delegate.read();
         }
-        BankStatement bankStatement = null;
-        Transaction transaction = currentTransaction;
-        currentTransaction= null;
 
-        if(transaction != null){
+        BankStatement bankStatement = null;
+
+        if (currentTransaction != null) {
             bankStatement = new BankStatement();
-            bankStatement.setId(UUID.randomUUID());
             bankStatement.setTransactions(new ArrayList<>());
-            bankStatement.getTransactions().add(transaction);
+            bankStatement.getTransactions().add(currentTransaction);
             bankStatement.setTimestamp(LocalDateTime.now());
 
-            while (isTransactionRelated(transaction)){
-                bankStatement.getTransactions().add(transaction);
-            }
-
+        }
+        while (isTransactionRelated(currentTransaction)) {
+            bankStatement.getTransactions().add(currentTransaction);
         }
         return bankStatement;
     }
 
     private boolean isTransactionRelated(Transaction transaction) throws Exception {
-        return peek() != null && transaction.getIdCustomer() == currentTransaction.getIdCustomer();
+      return peek() != null && transaction.getIdCustomer().equals(currentTransaction.getIdCustomer());
     }
 
     private Transaction peek() throws Exception {

@@ -1,7 +1,7 @@
 package br.com.arianarussp.bankstatementjob.processor;
 
-import br.com.arianarussp.bankstatementjob.dominio.BankStatement;
 import br.com.arianarussp.bankstatementjob.dominio.Customer;
+import br.com.arianarussp.bankstatementjob.dominio.BankStatement;
 import br.com.arianarussp.bankstatementjob.dominio.Transaction;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.validator.ValidationException;
